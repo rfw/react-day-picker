@@ -11,6 +11,7 @@ import postcssDts from 'postcss-typescript-d-ts';
 import fs from 'fs';
 import path from 'path';
 import copy from 'rollup-plugin-copy';
+import babel from '@rollup/plugin-babel';
 
 const distDir = path.resolve('./dist');
 const srcDir = path.resolve('./src');
@@ -48,6 +49,10 @@ const mainConfig = {
   external: ['react', 'date-fns', 'date-fns/locale'],
   plugins: [
     nodeResolve(),
+    babel({
+      babelHelpers: 'bundled',
+      exclude:'node_modules/**'
+    }),
     commonjs(),
     typescript({
       tsconfig: './tsconfig.build.json',
